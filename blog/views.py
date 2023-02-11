@@ -51,11 +51,8 @@ class AddPost(ListView):
 
         return render(request, 'blog/add_post.html', context=context)
 
-
-    def Test(selfdunction):
+    def test_function(x):
         pass
-
-
     def post(self, request, *args, **kwargs):
         new_post = Post(author=request.user, slug=django_slugify(request.POST['title']))
         bound_form = AddPostForm(request.POST, request.FILES, instance=new_post)
