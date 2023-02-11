@@ -1,0 +1,22 @@
+
+
+{% for key, value in side_bar.items %}
+    {% if request.user.is_authenticated %}
+        {% if key == 'Мои посты' %}
+            <div><a class="app-side-bar" href="{% url 'user_posts' user %}">{{ key }}</a></div>
+        {% else %}
+            <div><a class="app-side-bar" href="{% url value %}">{{ key }}</a></div>
+        {%  endif %}
+    {% else %}
+        {% if key != 'Добавить пост' and key != 'Мои посты'%}
+            <div><a class="app-side-bar" href="{% url value %}">{{ key }}</a></div>
+        {% endif %}
+    {% endif %}
+{% endfor %}
+
+
+
+
+
+
+

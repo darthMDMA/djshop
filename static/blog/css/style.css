@@ -1,0 +1,271 @@
+@font-face {
+  font-family: 'Comfortaa-VariableFont_wght';
+  src: local('Comfortaa-VariableFont_wght'),
+       url('../fonts/Comfortaa-VariableFont_wght.ttf') format("truetype");
+}
+
+header {
+  width: auto;
+  background: yellow;
+  height: 80px;
+  box-shadow: 0 6px 4px -4px rgba(0,0,0, 0.2);
+}
+
+footer {
+  background-color: green;
+  width: auto;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+/*-------------main web-----------*/
+.theme-box {
+
+  text-align: center;
+  background-color: #902b2b;
+  flex-basis: 100%;
+}
+
+.nav-box {
+  background-color: blanchedalmond;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  height: 80px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: Comfortaa-VariableFont_wght;
+}
+#logo {
+  flex: 1;
+  }
+
+#menu-box-left, #menu-box-right {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+  padding: 15px;
+  margin: 15px;
+
+}
+#menu-box-left {
+  justify-content: flex-start;
+   flex: 10;
+}
+#menu-box-right {
+  justify-content: flex-end;
+  flex: 6;
+}
+
+#menu-item {
+  background-color: #0000FF;
+  padding: 5px 15px;
+    font-size: 20px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/*---------container---------*/
+.center-box {
+  min-height: calc(100vh - 190px);
+  max-width: 1200px;
+  display: flex;
+  flex-direction: row;
+}
+/*-------------side bar----------*/
+
+#side-bar-box {
+  display: flex;
+  flex-direction: column;
+  background-color: #7b59c0;
+  flex-basis: 18%;
+
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+#side-bar-box div a {
+  text-decoration: none;
+  font-family: Comfortaa-VariableFont_wght;
+
+}#side-bar-box div {
+  border: black solid 1px;
+
+
+}
+
+.app-side-bar {
+  text-decoration: none;
+}
+
+.app-side-bar-text {
+  font-family: Comfortaa-VariableFont_wght;
+}
+
+.app-include-side-bar {
+  text-align: center;
+  font-size: min(2vw,20px);
+  text-decoration: none;
+}
+
+            /*-----expand app--------*/
+.my {
+  font-size: 20px;
+  vertical-align: bottom;
+  text-decoration: none;
+
+
+}
+#list {
+  max-height: 0;
+  overflow: hidden;
+  transition: 0.5s linear;
+}
+
+a:focus+#list {
+  max-height: 15em;
+}
+/* only select that link , here using the href attribute */
+a[href="nowhere"]:focus {
+  pointer-events: none;
+}
+            /*-----expand app--------*/
+.wrapper-box {
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 82%;
+}
+
+.content-box {
+  background-color: gray;
+  flex: 22;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  flex-wrap: wrap;
+}
+
+#post-box {
+  margin: 10px auto;
+  font-family: Comfortaa-VariableFont_wght;
+  max-height: 600px;
+  min-height: 500px;
+  max-width: 500px;
+  min-width: 350px;
+  flex-basis: 48%;
+  justify-content: center;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+}
+
+.post-image {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 450px 300px;
+  object-fit: contain;
+  min-height: 300px;
+  min-width: 200px ;
+  max-width: 600px;
+  max-height: 400px;
+
+}
+
+.article {
+  display: flex;
+  flex-direction: column;
+  flex-basis: auto; /* Устанавливает начальный размер элемента в зависимости от его содержимого */
+}
+
+.article-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+
+.article-body h2{
+  padding: 5px;
+  font-weight: 200;
+}
+
+.article-content {
+  flex: 1; /* Содержимое заполняет все оставшееся место, тем самым прижимая информационную панель к нижней части */
+}
+.post-button {
+  display: flex;
+  justify-content: flex-end;
+}
+.article-info {
+  display: flex;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.article-info a {
+  text-decoration: none;
+}
+
+/*---------pagination block-------------*/
+
+.list-pages {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+  margin: 5px;
+}
+.list-pages a {
+  color: #000;
+  font-size: 14px;
+  text-decoration: none;
+  list-style: none;
+}
+.list-pages .page-num, .page-num-selected {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #d0d0d0;
+  border-radius: 30px;
+}
+
+.list-pages .page-num:hover {
+  box-shadow: 3px 3px 1px #d0d0d0;
+}
+
+.list-pages .page-num-selected {
+  border: none;
+  color: #000;
+  font-size: 20px;
+}
+.list-pages .page-num-selected:hover {
+  box-shadow: none;
+}
+
+/*-----------footer-------------*/
+.footer-box {
+  background-color: red;
+  width: 1200px;
+  min-height: 100px;
+  max-height: 300px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+
+.footer-item {
+  flex-basis: 33%;
+}

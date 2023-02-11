@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://example.com/pip/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>pip install - djangoshop</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "pip install";
+        var mkdocs_page_input_path = "pip.md";
+        var mkdocs_page_url = "/pip/";
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> djangoshop
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">index</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">pip install</a>
+    <ul class="current">
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../dev/">dev</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../settings/">settings</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="" href="../models.md">blog</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">djangoshop</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>pip install</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="mkdocs">Настройка mkdocs</h2>
+<p><a href="https://www.mkdocs.org/getting-started/">mkdocs</a></p>
+<p><code>pip install mkdocs</code></p>
+<p><code>mkdocs serve</code></p>
+<pre><code class="language-python"></code></pre>
+<h2 id="dotenv">Настройка dotenv</h2>
+<p><a href="https://pypi.org/project/python-dotenv/">dotenv</a></p>
+<p><code>pip install dotenv</code></p>
+<pre><code class="language-python">from dotenv import load_dotenv
+# Loading ENV
+env_path = Path('.') / '.env'
+# env_path = '.env'
+load_dotenv(dotenv_path=env_path)
+</code></pre>
+<h2 id="django-ckeditor">Настройка django-ckeditor</h2>
+<p><a href="https://django-ckeditor.readthedocs.io/en/latest/#installation">django-ckeditor</a></p>
+<p><code>pip install django-ckeditor</code></p>
+<pre><code class="language-python">CKEDITOR_CONFIGS = {
+    'default': {
+        'width': 'auto',
+    },
+}
+</code></pre>
+<h2 id="django-allauth">Настройка django-allauth</h2>
+<p><a href="https://django-allauth.readthedocs.io/en/latest/installation.html">django-allauth</a></p>
+<p><code>pip install django-allauth</code></p>
+<p>в settings.py</p>
+<pre><code class="language-python">INSTALLED_APPS = [
+    ...
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.google',
+    ...
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SITE_ID = 1
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': '123',
+            'secret': '456',
+            'key': ''
+        }
+    }
+}
+</code></pre>
+<p>в urls.py</p>
+<pre><code class="language-python">urlpatterns = [
+    ...
+    path('accounts/', include('allauth.urls')),
+    ...
+]
+</code></pre>
+<h2 id="debug_toolbar">Настройка debug_toolbar</h2>
+<p><a href="https://django-debug-toolbar.readthedocs.io/en/latest/installation.html">debug_toolbar</a></p>
+<p><code>python -m pip install django-debug-toolbar</code></p>
+<p>в settings.py</p>
+<pre><code class="language-python">INSTALLED_APPS = [
+    # ...
+    &quot;django.contrib.staticfiles&quot;,
+    # ...
+    &quot;debug_toolbar&quot;,
+    # ...
+]
+
+STATIC_URL = &quot;static/&quot;
+
+TEMPLATES = [
+    {
+        &quot;BACKEND&quot;: &quot;django.template.backends.django.DjangoTemplates&quot;,
+        &quot;APP_DIRS&quot;: True,
+        # ...
+    }
+]
+
+MIDDLEWARE = [
+    # ...
+    &quot;debug_toolbar.middleware.DebugToolbarMiddleware&quot;,
+    # ...
+]
+
+INTERNAL_IPS = [
+    # ...
+    &quot;127.0.0.1&quot;,
+    # ...
+]
+</code></pre>
+<p>в urls.py</p>
+<pre><code class="language-python">from django.urls import include, path
+
+urlpatterns = [
+    # ...
+    path('__debug__/', include('debug_toolbar.urls')),
+]
+</code></pre>
+<h2 id="debug_channels">Настройка debug_channels</h2>
+<p><a href="https://channels.readthedocs.io/en/stable/installation.html">channels</a></p>
+<p><code>python -m pip install -U channels</code></p>
+<p>в settings.py</p>
+<pre><code class="language-python">ASGI_APPLICATION = &quot;myproject.asgi.application&quot;
+
+CHANNEL_LAYERS = {
+    &quot;default&quot;: {
+        &quot;BACKEND&quot;: &quot;channels.layers.InMemoryChannelLayer&quot;,
+    },
+}
+</code></pre>
+<h2 id="jupyter-notebook">Установка jupyter notebook</h2>
+<p><a href="https://jupyter.org/install">jupyter notebook</a>
+<a href="https://gist.github.com/EtsuNDmA/85a20b0b8cf5ec4e12352507b14f9762">django-extensions</a></p>
+<p><code>pip install notebook</code>
+<code>pip install django-extensions</code></p>
+<p>в settings.py</p>
+<pre><code class="language-python">INSTALLED_APPS = (
+    ...
+    'django_extensions',
+)
+</code></pre>
+<h2 id="django-taggit">Настройка django-taggit</h2>
+<p><a href="https://django-taggit.readthedocs.io/en/latest/getting_started.html">django-taggit</a></p>
+<p><code>pip install django-taggit</code></p>
+<pre><code class="language-python">Add &quot;taggit&quot; to your project’s INSTALLED_APPS setting.
+</code></pre>
+<h2 id="pillow">Настройка pillow</h2>
+<p><a href="https://django-crispy-forms.readthedocs.io/en/latest/install.html">pillow</a></p>
+<p><code>pip install pillow</code></p>
+<pre><code class="language-python">Какой то код
+</code></pre>
+<h2 id="django-cleanup">Настройка django-cleanup</h2>
+<p><a href="https://github.com/un1t/django-cleanup?ysclid=ld4z38aeff981787259">django-cleanup</a></p>
+<p><code>pip install django-cleanup</code></p>
+<pre><code class="language-python">Какой то код
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="index"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../dev/" class="btn btn-neutral float-right" title="dev">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../dev/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

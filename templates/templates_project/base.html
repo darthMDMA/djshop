@@ -1,0 +1,105 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>{{ title }}</title>
+	<link type="text/css" href="{% static 'blog/css/style.css' %}" rel="stylesheet"/>
+	<link type="text/css" href="{% static 'blog/css/media.css' %}" rel="stylesheet"/>
+
+    <link rel="shortcut icon" href="{% static 'blog/images/main.ico' %}" type="image/x-icon"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @font-face {
+        font-family: 'abc';
+        src: local('Abc'),
+        url('{% static 'blog/fonts/Comfortaa-VariableFont_wght.ttf' %} format("truetype")');
+      }
+    </style>
+
+</head>
+<body>
+{% block mainmenu %}
+{% include "templates_project/nav_bar.html" %}
+{% endblock mainmenu %}
+<div class="container">
+    <div class="center-box">
+        <!-- Sidebar слева -->
+        <div class="col-1 col-lg-4 col-md-6 col-sm-12" id="side-bar-box">
+            {%  if title == 'Главная страница' %}
+            {% for app, list in apps.items %}
+                <div>
+                    <a href="{% url app %}">{{ app }}&nbsp;&nbsp;&nbsp;</a>
+                    <a class="my" href="#nowhere">&#8595</a>
+                    <div id="list">
+{#                     <a class="app-side-bar" ><div class="app-side-bar-text">{{ app|upper }}</div></a>#}
+                {% for item in list%}
+                    <div><a href="#">{{ item }}</a></div>
+{#                         <a class="app-include-side-bar" href=""><div>{{ item }}</div></a>#}
+                {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+            {% else %}
+            {%  block sidebar %}
+            {%  endblock sidebar %}
+            {% endif %}
+        </div>
+
+        <!-- Конец Sidebar'а -->
+        <!-- Хлебные крошки -->
+        {% block breadcrumbs %}
+        {% endblock breadcrumbs%}
+        <!-- Конец Хлебные крошки -->
+        <!-- Блок контента -->
+        <div class="wrapper-box">
+            <div class="content-box">
+                {% block content %}
+                    <h1>Тестовый сайт написанный на джанго</h1>
+                    <span>Далее будет описание проекта</span>
+                {% endblock content %}
+            </div>
+                {#Блок пагинации#}
+            {% if page_obj.has_other_pages %} {# метод проверяет одна страница или больше, чтоюы не выводилась 1 если все пощается на одну страницу #}
+            <div class="list-pages">
+                {%  if page_obj.has_previous %} {# проверка методом существует ли предыдущая страница #}
+                    <div class="page-num">
+                        <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
+                    </div>
+                {% endif %}
+                {#пагинация страниц#}
+                {% for p in paginator.page_range %}
+                    {%  if page_obj.number == p %}
+                    <div class="page-num page-num-selected">{{ p }}</div>
+                    {# проверка на отображение номеров страниц текущая +-2 #}
+                    {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+                    <div class="page-num">
+                        <a href="?page={{ p }}">{{ p }}</a>
+                    </div>
+                    {%  endif %}
+                {% endfor %}
+                {# проверка методом существует ли следующая страница #}
+                {%  if page_obj.has_next %}
+                <div class="page-num">
+                    <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<!-- Конец блока контента -->
+<!-- Footer -->
+<footer>
+    <div class="footer-box">
+        <div class="footer-item">asdsa</div>
+        <div class="footer-item">&copy; 2021 Частичное или полное копирование информации с данного сайта для распространения на других ресурсах, в том числе и бумажных, строго запрещено.</div>
+        <div class="footer-item">asdsad</div>
+    </div>
+</footer>
+<!-- Конец footer'а и страницы -->
+
+</body>
+</html>

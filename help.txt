@@ -1,0 +1,38 @@
+1)Создал проект djshop
+2)Обновил pip произошле сбой, pip удалился, вернул командой python -m ensurepip
+3)Установил пакет pip install django-crispy-forms==1.14.0( https://django-crispy-forms.readthedocs.io/en/latest/install.html)
+pip freeze - просмотр установленных библиотек
+Установил пакет pip install django-cleanup==6.0.0 (https://github.com/un1t/django-cleanup?ysclid=ld4z38aeff981787259)
+Установил паке pip install pillow==9.4.0
+Установил пакет pip install django-ckeditor=6.5.1(https://django-ckeditor.readthedocs.io/en/latest/#installation)
+Установил python -m pip install -U channels(https://channels.readthedocs.io/en/stable/installation.html)
+Установил pip install django-allauth==0.52.0(https://django-allauth.readthedocs.io/en/latest/installation.html)
+Установил pip install python-dotenv==0.21.0 (https://pypi.org/project/python-dotenv/)
+Установил pip install django-braces==1.15.0 (https://github.com/brack3t/django-braces) необязательно
+Установил pip install django-taggit=3.1.0 (
+Установил pip install mkdocs
+4)Создаем проект django-admin startproject имя, удалил директорию djshop
+5) Ввел команду mkdocs new имя и создал папку
+6) В этой папке ввел mkdocs build
+7) mkdocs serve для запуска cбора данных
+8) STATIC_ROOT = os.path.join(BASE_DIR, 'static') внес в settings папку static
+9) команда python manage.py collectstatic собирает статические файлы
+10) Добавляем STATICFILES_FINDERS в SETTINGS
+11) В urls.py добавили if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+12) Создал папку media и занес в настройки MEDIA_ROOT и MEDIA_URL
+13) Создаем миграции python manage.py makemigrations и переносим python manage.py migrate
+14) Создаём суперпользователя python manage.py createsuperuser ( root, 1234)
+15) Создаю приложение Blog python manage.py startapp blog
+16) Добавляем его в INSTALLED_APPS указывая полный путь, но можно и короткий ('blog')
+17) Добавляем установленные библиотеки django-cleanup и тд в INSTALLED_APPS
+collectstatic makemigrations/migrate безопасны и можно делать чтобы собрать недостающие элементы
+18) Установил debug toolbar python -m pip install django-debug-toolbar
+19) Установил pip install notebook и pip install django-extensions (https://django-extensions.readthedocs.io/en/latest/installation_instructions.html#installing)
+20) Проверяем работоспособность  jupyter, создаем таблицу в models.py в приложении Blog и создаем обьект модели
+21) Заносим приложение blog в админ панель через admin.py
+22) Поставил расширение в jupyter pip install jupyter_contrib_nbextensions (запуск python manage.py shell_plus --notebook)
+                                  jupyter nbextensions_configurator enable --user
+   Если нет элемента hinterland   jupyter contrib nbextensions install --user --skip-runnnig-check
+23) Чтобы измнеить номер порта для открытия разных приложений venv/Lib/site-packages/django/core/management/commands/runserver.py
+24)Были проблемы с стилями, помогло ctrl + F5

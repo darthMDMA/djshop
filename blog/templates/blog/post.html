@@ -1,0 +1,31 @@
+{% extends "blog/index.html" %}
+
+{% block content %}
+    <div class="wrapper-box" style="margin: 10px auto 20px auto">
+        {% block allert %}
+        {% if messages %}
+        <div class="messages" style="text-align: center; background-color: lightgreen; margin: auto">
+            {% for message in messages %}
+                <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ user }},&nbsp;{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endblock allert %}
+
+        <div style="text-align: center">
+            <h1>{{ post.title }}</h1>
+        </div>
+        <div class="post-image" style=' background-image: url("{{ post.photo.url }}")'></div>
+        <div>
+            <p>{{ post.content|safe }}</p>
+        </div>
+        <div>
+             <p>by&nbsp;&nbsp;</p><a href="">{{ post.author }}</a>&nbsp;&nbsp;{{ post.date_created|date:"F d F Y" }}
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block sidebar %}
+    {% include "templates_project/blog_side_bar.html" %}
+{% endblock sidebar %}

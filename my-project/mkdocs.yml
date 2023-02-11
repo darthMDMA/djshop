@@ -1,0 +1,14 @@
+site_name: djangoshop
+site_url: https://example.com/
+
+nav:
+  - index: index.md
+  - pip install: pip.md
+  - dev: dev.md
+  - settings: settings.md
+  - blog: blog/models.md
+  - dev blog: blog/dev_blog.md
+
+
+
+theme: readthedocs
