@@ -168,6 +168,7 @@ a[href="nowhere"]:focus {
   flex-direction: column;
   align-items: center;
   align-content: center;
+  border-radius: 10px;
 }
 
 .post-image {
@@ -179,7 +180,6 @@ a[href="nowhere"]:focus {
   min-width: 200px ;
   max-width: 600px;
   max-height: 400px;
-
 }
 
 .article {
