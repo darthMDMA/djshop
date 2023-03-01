@@ -1,0 +1,2 @@
+# djshop
+test Django project
