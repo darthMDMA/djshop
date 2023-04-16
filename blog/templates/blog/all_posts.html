@@ -1,45 +1,17 @@
 {% extends "blog/index.html" %}
-
+{% block title %}
+    {% if tag %}
+        <h1 style="text-align: center">#{{ tag.title }}</h1>
+    {% endif %}
+{% endblock title %}
 
 {% block content %}
-{% if posts %}
-    {% for p in posts %}
-
-        <div id="post-box">
-            <div class="post-column">
-                <a class="article first-article">
-                    {% if p.photo %}
-                        <div class="post-image" style=' background-image: url("{{ p.photo.url }}")'></div>
-                    {% else %}
-                        <div></div>
-                    {% endif %}
-                    <div class="article-body">
-                        <h2 class="article-title">
-                            {{ p.title }}
-                        </h2>
-                        <div class="article-info">
-                            <p>by&nbsp;&nbsp;</p><a href="">{{ p.author }}</a>&nbsp;&nbsp;{{ p.date_created|date:"F d F Y" }}
-                        </div>
-                        <p class="article-content">
-                            {{ p.content|safe|truncatechars:255 }}
-                        </p>
-                  </div>
-                  <div class="post-button">
-                      <form action="{{ p.get_absolute_url }}">
-                          <button type="submit">Читать</button>
-                      </form>
-                  </div>
-                </a>
-            </div>
-        </div>
-
+{% if post %}
+    {% for p in post %}
+        {% include "blog/includes/post_card.html" %}
     {% endfor %}
 {% else %}
-<h1>У пользователя еще нет написанных постов</h1>
+    <h1>Посты отсутвуют</h1>
 {% endif %}
-
 {% endblock content %}
 
-{% block sidebar %}
-    {% include "templates_project/blog_side_bar.html" %}
-{% endblock sidebar %}

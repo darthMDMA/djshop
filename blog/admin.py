@@ -1,9 +1,7 @@
 from django.contrib import admin
 from django.forms import TextInput, Textarea
-
+from blog.models import *
 from django.db import models
-from blog.models import Post
-# Register your models here.
 
 
 @admin.register(Post)   # добавили в админ панель свое приложение
@@ -18,4 +16,13 @@ class PageAdmin(admin.ModelAdmin):
         models.TextField: {'widget': Textarea(attrs={'rows':4, 'cols':40})},
     }
 
-# admin.site.register(Post, PageAdmin)
+class TagAdmin(admin.ModelAdmin):
+    list_display = ['id', 'title', 'slug']
+    prepopulated_fields = {'slug': ('title',)}
+
+
+admin.site.register(Tag, TagAdmin)
+
+
+admin.site.site_title = 'Django practice'
+admin.site.site_header = 'Админ-панель тренировочного сайта'

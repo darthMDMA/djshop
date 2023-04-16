@@ -1,31 +1,92 @@
 {% extends "blog/index.html" %}
 
 {% block content %}
-    <div class="wrapper-box" style="margin: 10px auto 20px auto">
+    <div class="wrapper-box" style="margin: 0 auto 0 auto">
+
+    {% block page_nav %}
+    <div style="display: flex; justify-content: space-between">
+        <div><a href="{% url 'all_posts_url' %}" style="padding-left: 10px; text-decoration: none">Вернуться назад</a></div>
+        <div style="display: flex">
+            <div style="padding-right: 10px"><a href="{% url 'edit_post_url' post.author post.slug post.id %}">Изменить</a></div>
+            <div style="padding-right: 10px">Удалить</div>
+        </div>
+    </div>
+    {% endblock page_nav %}
+
         {% block allert %}
         {% if messages %}
         <div class="messages" style="text-align: center; background-color: lightgreen; margin: auto">
             {% for message in messages %}
-                <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ user }},&nbsp;{{ message }}</div>
+                <div>{% if message.tags %}{{ message.tags }}{% endif %} {{ user }},&nbsp;{{ message }}</div>
             {% endfor %}
         </div>
         {% endif %}
         {% endblock allert %}
+        <div style="text-align: center; word-break: break-all;">
+            <div>
+                <h1 style="word-break: normal">{{ post.title }}</h1>
+            </div>
 
-        <div style="text-align: center">
-            <h1>{{ post.title }}</h1>
+            <img class="post-image" src="{{ post.photo.url }}" alt="{{ post.title }}">
+
+            <div>
+                <p>{{ post.content|safe }}</p>
+            </div>
+            <div style="display: flex; justify-content: flex-end; padding-left: 10px">
+                 <p>by&nbsp;&nbsp;</p><a href="">{{ post.author }}</a>&nbsp;&nbsp;{{ post.date_created|date:"F d F Y" }}
+            </div>
+            <div style="display: flex">Тэги:
+            {% for tag in post.tags.all %}
+                <div style="margin-left: 5px"><a href="{{ tag.get_absolute_url }}">#{{ tag }}</a></div>
+            {% endfor %}
+            </div>
         </div>
-        <div class="post-image" style=' background-image: url("{{ post.photo.url }}")'></div>
+
+{#  ----------------Блок комментриаев--------------------- #}
+        {% block discussion %}
         <div>
-            <p>{{ post.content|safe }}</p>
+            <form action="" method="post" enctype="multipart/form-data" id="comment-form">
+                {% csrf_token %}
+                <div class="form-error">{{ form.non_field_errors }}</div>
+                {% for f in form %}
+                <div>
+                    <div><label for="{{ f.id_for_label }}">{{ f.label }}:</label></div>
+                    <div >{{ f }}</div>
+                </div>
+                <div class="form-error">{{ f.errors }}</div>
+                {% endfor  %}
+                <button type="submit">Добавить</button>
+            </form>
         </div>
-        <div>
-             <p>by&nbsp;&nbsp;</p><a href="">{{ post.author }}</a>&nbsp;&nbsp;{{ post.date_created|date:"F d F Y" }}
+        <div><h3>Комментарии({{ post.total_comments }}):</h3></div>
+        <div style="display: flex; flex-direction: column; max-width: 950px; min-width: 344px">
+            <div>
+            {% for c in post.comments.all %}
+                <div style="border: black solid 1px">
+                    <div>
+                        {{ c.content }}
+                    </div>
+                    <div style="display: flex">
+                        <div>{{ c.author }}</div>
+                        <div>&nbsp;&nbsp;{{ c.date_created }}</div>
+                     </div>
+                </div>
+                {% include 'blog/includes/reply_comment_form.html' %}
+                {% if c.replies.all|length > 0%}
+                     {% for r in c.replies.all %}
+                         <div style="border: black solid 1px;margin-left: 30px">
+                             <div>{{ r.content }}</div>
+                             <div style="display: flex; justify-content: space-between">
+                                 <div>{{ r.author }}</div>
+                             </div>
+                            {% include 'blog/includes/reply_comment_form.html' %}
+                         </div>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+            </div>
         </div>
     </div>
+    {% endblock discussion %}
 
 {% endblock content %}
-
-{% block sidebar %}
-    {% include "templates_project/blog_side_bar.html" %}
-{% endblock sidebar %}

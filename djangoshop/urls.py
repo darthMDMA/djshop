@@ -23,7 +23,7 @@ from .views import home_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_view, name='home'),
-    path('', include('blog.urls')),
+    path('blog/', include('blog.urls')),
     path('', include('discussions.urls')),
     path('accounts/', include('allauth.urls')), # для библиотеки allauth
     path('__debug__/', include('debug_toolbar.urls')), # для debug_toolbar

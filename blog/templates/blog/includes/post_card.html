@@ -1,0 +1,28 @@
+        <div id="post-box">
+            <div class="post-column">
+            {% if p.photo %}
+                <img class="post-image" src="{{ p.photo.url }}" alt="{{ post.title }}">
+            {% else %}
+                <div></div>
+            {% endif %}
+                <div class="article-body">
+                    <h2 class="article-info">{{ p.title }}</h2>
+                    <div class="article-info">
+                        <p>by&nbsp;&nbsp;</p><a href="">{{ p.author }}</a>&nbsp;&nbsp;{{ p.date_created|date:"d F Y" }}
+                    </div>
+                    <p class="article-content">
+                        {{ p.content|safe|truncatechars:255 }}
+                    </p>
+                </div>
+                <div class="article-info" style="display: flex"> Тэги:
+                    {% for tag in p.tags.all %}
+                        <div  style="margin-left: 5px"><a href="{{ tag.get_absolute_url }}" >#{{ tag }}</a></div>
+                    {% endfor %}
+                </div>
+                <div class="post-button">
+                    <form action="{{ p.get_absolute_url }}">
+                        <button type="submit">Читать</button>
+                    </form>
+                </div>
+            </div>
+        </div>

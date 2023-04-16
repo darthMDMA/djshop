@@ -1,0 +1,15 @@
+{% extends "blog/index.html" %}
+
+{% block content %}
+    <div style="display: flex; flex-direction: column;">
+    <h1>Тэги:</h1>
+    {% for item in tag %}
+    <ul style="padding-left: 30px">
+        <li>
+            <a href="{{ item.get_absolute_url }}">{{ item }}</a>
+        </li>
+    </ul>
+    {% endfor %}
+    </div>
+
+{% endblock content %}

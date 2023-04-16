@@ -98,7 +98,6 @@ footer {
 }#side-bar-box div {
   border: black solid 1px;
 
-
 }
 
 .app-side-bar {
@@ -114,13 +113,11 @@ footer {
   font-size: min(2vw,20px);
   text-decoration: none;
 }
-
             /*-----expand app--------*/
 .my {
   font-size: 20px;
   vertical-align: bottom;
   text-decoration: none;
-
 
 }
 #list {
@@ -138,7 +135,7 @@ a[href="nowhere"]:focus {
 }
             /*-----expand app--------*/
 .wrapper-box {
-  max-width: 1000px;
+  min-width: 344px;
   display: flex;
   flex-direction: column;
   flex-basis: 82%;
@@ -148,40 +145,53 @@ a[href="nowhere"]:focus {
   background-color: gray;
   flex: 22;
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  align-content: flex-start;
   flex-wrap: wrap;
 }
 
 #post-box {
-  margin: 10px auto;
+  margin: 5px 5px 5px 5px;
   font-family: Comfortaa-VariableFont_wght;
   max-height: 600px;
   min-height: 500px;
   max-width: 500px;
-  min-width: 350px;
+  min-width: 330px;
   flex-basis: 48%;
-  justify-content: center;
   border: 1px solid black;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  align-content: center;
+  border-radius: 10px;
 }
 
+
 .post-image {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 450px 300px;
-  object-fit: contain;
+  padding: 5px;
   min-height: 300px;
   min-width: 200px ;
   max-width: 600px;
   max-height: 400px;
-
+  width: 100%;
+  border-radius:10px; /* Радиус скругления */
 }
 
+/*---------------reply-form--------------*/
+.del { display: none; }
+.del:checked + label + * { display: none; } /* фактически нужна только одна строка */
+
+/* вид CSS кнопки */
+.del:not(:checked) + label,
+.del:checked + label {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 2px;
+  color: black;
+  background: rgba(124, 23, 55, 60%);
+  cursor: pointer;
+}
+.del:checked + label:hover {
+  background-color: rgba(134,43,255, 25%);
+}
+
+/*-----------------*/
 .article {
   display: flex;
   flex-direction: column;
@@ -194,11 +204,15 @@ a[href="nowhere"]:focus {
   flex-direction: column;
   align-content: center;
   align-items: center;
+  word-break: break-all;
 }
 
-.article-body h2{
+.article-body h2 {
+  text-align: center;
+  word-break: break-all;
   padding: 5px;
-  font-weight: 200;
+  font-weight: 500;
+
 }
 
 .article-content {
@@ -216,6 +230,8 @@ a[href="nowhere"]:focus {
 .article-info a {
   text-decoration: none;
 }
+
+/*------------forms----------------*/
 
 /*---------pagination block-------------*/
 

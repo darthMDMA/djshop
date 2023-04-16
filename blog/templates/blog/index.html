@@ -2,11 +2,17 @@
 
 {% block content %}
 
+    {% block page_nav %}
+    {% endblock page_nav %}
+
+    {% block discussion %}
+    {% endblock discussion%}
+
 {% endblock content %}
 
 
 {% block sidebar %}
-   {% include "templates_project/blog_side_bar.html" %}
+   {% include "blog/includes/blog_side_bar.html" %}
 {% endblock sidebar %}
 
 

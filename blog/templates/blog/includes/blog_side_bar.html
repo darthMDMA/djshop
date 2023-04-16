@@ -1,0 +1,37 @@
+
+
+{% for item, item_url in side_bar.items %}
+    {% url item_url as i_u %}
+    {% if request.user.is_authenticated %}
+        {% if item == 'Мои посты' %}
+            {% url 'user_posts_url' user as i_u_u%}
+            {% if request.path == i_u_u  %}
+                <div><strong>{{ item }}</strong></div>
+            {% else %}
+                <div><a class="app-side-bar" href="{{ i_u_u }}">{{ item }}</a></div>
+            {% endif %}
+        {% else %}
+            {% if request.path == i_u  %}
+                <div><strong>{{ item }}</strong></div>
+            {% else %}
+                <div><a class="app-side-bar" href="{% url item_url %}">{{ item }}</a></div>
+            {% endif %}
+        {%  endif %}
+    {% else %}
+        {% if item != 'Добавить пост' and item != 'Мои посты'%}
+            {% if request.path == i_u  %}
+                <div><strong>{{ item }}</strong></div>
+            {% else %}
+                <div><a class="app-side-bar" href="{% url item_url %}">{{ item }}</a></div>
+            {% endif %}
+
+        {% endif %}
+    {% endif %}
+{% endfor %}
+
+
+
+
+
+
+

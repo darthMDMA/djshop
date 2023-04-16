@@ -26,18 +26,21 @@
 <div class="container">
     <div class="center-box">
         <!-- Sidebar слева -->
-        <div class="col-1 col-lg-4 col-md-6 col-sm-12" id="side-bar-box">
+        <div id="side-bar-box">
             {%  if title == 'Главная страница' %}
-            {% for app, list in apps.items %}
+            {% for app, side_bar in apps.items %}
                 <div>
                     <a href="{% url app %}">{{ app }}&nbsp;&nbsp;&nbsp;</a>
                     <a class="my" href="#nowhere">&#8595</a>
                     <div id="list">
 {#                     <a class="app-side-bar" ><div class="app-side-bar-text">{{ app|upper }}</div></a>#}
-                {% for item in list%}
-                    <div><a href="#">{{ item }}</a></div>
-{#                         <a class="app-include-side-bar" href=""><div>{{ item }}</div></a>#}
-                {% endfor %}
+
+                    {% include "blog/includes/blog_side_bar.html" %}
+{#                {% for item, item_url in list.items%}#}
+{#                    <div>#}
+{#                        <a href="{% url item_url %}">{{ item }}</a>#}
+{#                    </div>#}
+{#                {% endfor %}#}
                     </div>
                 </div>
             {% endfor %}
@@ -46,7 +49,6 @@
             {%  endblock sidebar %}
             {% endif %}
         </div>
-
         <!-- Конец Sidebar'а -->
         <!-- Хлебные крошки -->
         {% block breadcrumbs %}
@@ -54,6 +56,10 @@
         <!-- Конец Хлебные крошки -->
         <!-- Блок контента -->
         <div class="wrapper-box">
+            <div class="title-box">
+                {%  block title %}
+                {% endblock title %}
+            </div>
             <div class="content-box">
                 {% block content %}
                     <h1>Тестовый сайт написанный на джанго</h1>

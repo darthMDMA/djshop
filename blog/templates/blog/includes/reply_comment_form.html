@@ -1,0 +1,20 @@
+<input type="checkbox" id="{{ c.pk}}-{{r.pk }}" class="del" checked="checked"/>
+<label for="{{ c.pk}}-{{r.pk }}" class="del" id="del-{{ c.pk}}-{{r.pk }}">Ответить</label>
+<div id="reply-form" >
+    <form id="reply-form" action="" method="post">
+         {% for f in reply_form %}
+             <div>{{ f }}</div>
+         {% csrf_token %}
+             <div style="display: flex; justify-content: flex-end">
+                <button type="submit" value="
+{% if r %}
+{{ c.pk }}-{{ r.get_author}}
+{% else %}
+{{ c.pk }}-{{ c.get_author }}
+{% endif %}" name="comment_id">Отправить</button>
+            </div>
+         {% endfor %}
+    </form>
+</div>
+
+

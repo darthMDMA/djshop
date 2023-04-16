@@ -1,30 +1,56 @@
+import datetime
+
 from django import forms
 from jsonschema.exceptions import ValidationError
 
-from .models import Discussion
+from .models import Comment, Reply
 
 
 class DiscussionCreateForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs): # конструктор экзмепляра класса форм
-        self.author = kwargs.pop('author', None)
-        super().__init__(*args, **kwargs) # вызов конструктора базового класса
-
-
     class Meta:
-        model = Discussion
-        fields = ['title', 'content']
+        model = Comment
+        fields = ['content']
         widgets = {  # перечень полей в которых мы меняем стиль
-            'title': forms.TextInput(attrs={'class': 'form-input'}),
-            'content': forms.Textarea(attrs={'cols': 60, 'rows': 10})
+            'content': forms.Textarea(attrs={'style': 'resize: none;''width: 100%;''overflow: none;''height: 50px;'}),
+        }
+
+        labels = {
+            'content': 'Добавить комментарий',
+
+        }
+
+    def cleaned_post_id(self):
+        return self.cleaned_data['post_id']
+
+
+class ReplyCreateForm(forms.ModelForm):
+    class Meta:
+        model = Reply
+        fields = ['content']
+        widgets = {  # перечень полей в которых мы меняем стиль
+            'content': forms.Textarea(attrs={'style': 'resize: none;'
+                                                      'width: 100%;'
+                                                      'overflow: none;''height: 50px;'
+                                                     }),
         }
 
 
-    def clean_title(self): # Валидатор для проверки поля Заголовок. начинается с clean!!!
-        title = self.cleaned_data['title'] # получаем даныне по заголовку
-        if len(title) > 200: # Если длинна больше 200
-            raise ValidationError('Длинна превышает 200 символов') # генерация исключения
-        return title # либо возвращение заголовка
+#
+class ContactForm(forms.Form):
+
+    date_created = forms.DateField(initial=datetime.date.today())
+    subject = forms.CharField(max_length=30 )
+    message = forms.CharField(max_length=300)
+    sender = forms.EmailField()
+    cc_myself = forms.BooleanField(required=True)
 
 
+    def clean_date_created(self):
+        data = self.cleaned_data['date_created']
+        today = datetime.date.today()
+        if data != today:
+            raise forms.ValidationError('Дата отправки должна быть сегодня')
+
+        return data
 
 

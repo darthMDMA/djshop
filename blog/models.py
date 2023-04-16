@@ -9,17 +9,16 @@ class Post(models.Model):
         verbose_name = 'Создать пост'
         verbose_name_plural = 'Создать посты'
 #
-    title = models.CharField(max_length=200, help_text='не более 200 символов', db_index=True) # db_index добавляет индексацию и ускоряет поиск
-    # content = models.TextField(max_length=5000, blank=True, null=True, help_text='не более 5000 символов') # для текста лучше не ставить null=True
-    content = models.TextField(max_length=5000, blank=True, null=True, help_text='не более 5000 символов') # для текста лучше не ставить null=True
+    title = models.CharField(max_length=30, help_text='не более 200 символов', db_index=True) # db_index добавляет индексацию и ускоряет поиск
+    content = models.TextField(max_length=5000, blank=False, null=False, help_text='не более 5000 символов') # для текста лучше не ставить null=True
     photo = models.ImageField(upload_to="photos/%Y/%m/%d/", verbose_name='photo') # при добавлении фото путь в папках будет Год меся день
     date_created = models.DateTimeField(default=timezone.now)
     date_updated = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    # в urls.py при использовании slug добавлять id + get_absolute_url, если будет одинаковый slug у постов  unique=True
+    tags = models.ManyToManyField('Tag', blank=True, related_name='post_tags',)
     slug = models.SlugField(max_length=50, db_index=True, verbose_name='URL')
-    likes = models.ManyToManyField(User, related_name='postcomment', blank=True) # многие ко многим
-    reply = models.ForeignKey('self', blank=True, null=True, related_name='reply_ok', on_delete=models.CASCADE) # один ко многим
+    # comments = models.ForeignKey(Comment, related_name='posts', blank=True, required=False, on_delete=models.CASCADE)
+    likes = models.ManyToManyField(User, related_name='post_likes', blank=True) # многие ко многим
 
     def __str__(self):
         return self.title
@@ -27,6 +26,28 @@ class Post(models.Model):
     def total_likes(self): # для подсчета общего количества лайков
         return self.likes.count()
 
-    def get_absolute_url(self):
-        return reverse('post', kwargs={'username': self.author, 'post_slug': self.slug, 'post_id': self.id})
+    def total_comments(self):
+        tot = 0
+        for comment in self.comments.all():
+            tot += 1
+            for reply in comment.replies.all():
+                tot += 1
+        return tot
 
+    def get_absolute_url(self):
+        return reverse('post_url', kwargs={'username': self.author, 'post_slug': self.slug, 'post_id': self.id})
+
+
+class Tag(models.Model):
+    class Meta:
+        verbose_name = 'Создать тэг'
+        verbose_name_plural = 'Создать тэги'
+
+    title = models.CharField(max_length=50, unique=True)
+    slug = models.SlugField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('tag_url', kwargs={'tag_slug': self.slug})

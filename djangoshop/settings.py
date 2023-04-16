@@ -67,6 +67,8 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
 ]
 
+LOGIN_URL = "account_login" #????
+
 # Start debug_toolbar
 # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html
 INTERNAL_IPS = [
