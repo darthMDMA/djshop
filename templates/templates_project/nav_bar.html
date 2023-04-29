@@ -12,10 +12,11 @@
         <div id="menu-box-right">
             {% if request.user.is_authenticated %}
                 <div><a href="" id="menu-item">Корзина</a></div>
+                <div><a href="{% url 'logout' %}" id="menu-item">Выйти</a></div>
             {% else %}
-                <div><a href="" id="menu-item">Регистрация</a></div>
+                <div><a href="{% url 'register_url' %}" id="menu-item">Регистрация</a></div>
+                <div><a href="{% url 'login_url' %}" id="menu-item">Войти</a></div>
             {% endif %}
-            <div><a href="{% url 'login_url' %}" id="menu-item">Войти</a></div>
         </div>
     </div>
 </header>

@@ -27,7 +27,7 @@
     <div class="center-box">
         <!-- Sidebar слева -->
         <div id="side-bar-box">
-            {%  if title == 'Главная страница' or title == 'Авторизация'%}
+            {%  if title == 'Главная страница' or title == 'Авторизация' or title == 'Регистрация' %}
             {% for app, side_bar in apps.items %}
                 <div>
                     <a href="{% url app %}">{{ app }}&nbsp;&nbsp;&nbsp;</a>

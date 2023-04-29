@@ -134,12 +134,9 @@ class PostDetail(DetailView):
         return render(request, 'blog/post.html', context)
 
 
-
 def editpost(request, username, post_slug, post_id):
-    print(request)
     template = 'blog/edit_post.html'
     post = Post.objects.get(id=post_id, slug__iexact=post_slug)
-    print(post)
     context = {
         'post': post,
         'side_bar': side_bar['side_bar']

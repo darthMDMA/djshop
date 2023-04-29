@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib import messages
 from django.shortcuts import render
-from django.core.mail import send_mail, BadHeaderError
+from django.core.mail import send_mail
 from .forms import *
 
 
