@@ -10,8 +10,12 @@
             <div><a href="" id="menu-item">Контакты</a></div>
         </div>
         <div id="menu-box-right">
-            <div><a href="" id="menu-item">Корзина</a></div>
-            <div><a href="" id="menu-item">Войти</a></div>
+            {% if request.user.is_authenticated %}
+                <div><a href="" id="menu-item">Корзина</a></div>
+            {% else %}
+                <div><a href="" id="menu-item">Регистрация</a></div>
+            {% endif %}
+            <div><a href="{% url 'login_url' %}" id="menu-item">Войти</a></div>
         </div>
     </div>
 </header>

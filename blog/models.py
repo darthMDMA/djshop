@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 
+
 class Post(models.Model):
     class Meta:
         verbose_name = 'Создать пост'
@@ -51,3 +52,4 @@ class Tag(models.Model):
 
     def get_absolute_url(self):
         return reverse('tag_url', kwargs={'tag_slug': self.slug})
+

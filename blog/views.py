@@ -4,6 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
 from .models import *
 from .utils import django_slugify
 from .utils import DataPostMixin
@@ -21,11 +22,9 @@ side_bar = {'side_bar': {'Блог': 'blog',
 
 
 def blog_home(request):
-    print(type(request))
     request_dict = {'request': request}
     context = dict(list(side_bar.items()) + list(request_dict.items()))
     return render(request, template_name='blog/index.html',context=context)
-
 
 class PostsListView(DataPostMixin, ListView):
     def get_queryset(self):
@@ -38,7 +37,6 @@ class PostsListView(DataPostMixin, ListView):
 
 
 class UserPostListView(DataPostMixin, ListView):
-
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Post.objects.filter(author=user).order_by('-date_created')
@@ -63,9 +61,7 @@ class TagsList(ListView):
         return dict(list(context.items()) + list(c_def.items()) + list(side_bar.items()))
 
 
-
 class AddPost(ListView):
-
     def get(self, request, *args, **kwargs):
         form = AddPostForm()
         request_dict = {'request': request}

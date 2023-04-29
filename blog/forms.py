@@ -1,6 +1,4 @@
 from django import forms
-from jsonschema.exceptions import ValidationError
-
 from .models import Post
 
 # узнать как применить в форме  fileds initital, для класса Form

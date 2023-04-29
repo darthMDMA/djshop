@@ -27,20 +27,20 @@
     <div class="center-box">
         <!-- Sidebar слева -->
         <div id="side-bar-box">
-            {%  if title == 'Главная страница' %}
+            {%  if title == 'Главная страница' or title == 'Авторизация'%}
             {% for app, side_bar in apps.items %}
                 <div>
                     <a href="{% url app %}">{{ app }}&nbsp;&nbsp;&nbsp;</a>
                     <a class="my" href="#nowhere">&#8595</a>
                     <div id="list">
-{#                     <a class="app-side-bar" ><div class="app-side-bar-text">{{ app|upper }}</div></a>#}
+        {#                     <a class="app-side-bar" ><div class="app-side-bar-text">{{ app|upper }}</div></a>#}
 
                     {% include "blog/includes/blog_side_bar.html" %}
-{#                {% for item, item_url in list.items%}#}
-{#                    <div>#}
-{#                        <a href="{% url item_url %}">{{ item }}</a>#}
-{#                    </div>#}
-{#                {% endfor %}#}
+        {#                {% for item, item_url in list.items%}#}
+        {#                    <div>#}
+        {#                        <a href="{% url item_url %}">{{ item }}</a>#}
+        {#                    </div>#}
+        {#                {% endfor %}#}
                     </div>
                 </div>
             {% endfor %}
@@ -50,6 +50,7 @@
             {% endif %}
         </div>
         <!-- Конец Sidebar'а -->
+
         <!-- Хлебные крошки -->
         {% block breadcrumbs %}
         {% endblock breadcrumbs%}
