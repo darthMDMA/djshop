@@ -6,22 +6,20 @@
     {% block page_nav %}
     <div style="display: flex; justify-content: space-between">
         <div><a href="{% url 'all_posts_url' %}" style="padding-left: 10px; text-decoration: none">Вернуться назад</a></div>
+        {% if request.user == post.author %}
         <div style="display: flex">
             <div style="padding-right: 10px"><a href="{% url 'edit_post_url' post.author post.slug post.id %}">Изменить</a></div>
-            <div style="padding-right: 10px">Удалить</div>
-        </div>
-    </div>
-    {% endblock page_nav %}
+            <div style="padding-right: 10px">
+                <form action="{% url 'delete_post_url' post.author post.slug post.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+            </div>
 
-        {% block allert %}
-        {% if messages %}
-        <div class="messages" style="text-align: center; background-color: lightgreen; margin: auto">
-            {% for message in messages %}
-                <div>{% if message.tags %}{{ message.tags }}{% endif %} {{ user }},&nbsp;{{ message }}</div>
-            {% endfor %}
         </div>
         {% endif %}
-        {% endblock allert %}
+    </div>
+    {% endblock page_nav %}
         <div style="text-align: center; word-break: break-all;">
             <div>
                 <h1 style="word-break: normal">{{ post.title }}</h1>

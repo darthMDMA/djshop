@@ -8,6 +8,7 @@ from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.contrib.auth import logout, login
 from django.shortcuts import render, redirect
+from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 
 app_name_path = os.path.join(BASE_DIR, '')
@@ -22,21 +23,25 @@ def home_view(request):
     return render(request, 'templates_project/base.html', context=context)
 
 
-class LoginPageView(LoginView):
+class LoginPageView(SuccessMessageMixin, LoginView):
     template_name = 'templates_project/login.html'
     form_class = AuthUserForm
-    success_url = reverse_lazy('home')
+    success_message ='Вы успешно авторизованы!'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         c_def = {'title': 'Авторизация', 'apps': apps}
         return dict(list(context.items()) + list(c_def.items()))
 
+    def get_success_url(self): # перенаправление если пользователь верно ввел логин и пароль
+        return reverse_lazy('home')
 
-class RegisterPageView(CreateView):
+
+class RegisterPageView(SuccessMessageMixin, CreateView):
     template_name = 'templates_project/register.html'
     form_class = RegisterUserForm
-    success_url = reverse_lazy('login_url')
+    success_url = reverse_lazy('home')
+    success_message = 'Вы успешно зарегистрированы!'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -47,7 +52,7 @@ class RegisterPageView(CreateView):
         user = form.save()  # добавляем пользователя в базу данных
         user.backend = 'django.contrib.auth.backends.ModelBackend'
         login(self.request, user)  # вызоф функции джанго, которая авторизовывает пользователя
-        return redirect('login_url')  #
+        return redirect('home')  #
 
 
 def logoutuser(request): # функция разлогинивания

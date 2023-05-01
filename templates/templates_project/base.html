@@ -61,6 +61,15 @@
                 {%  block title %}
                 {% endblock title %}
             </div>
+            {% block allert %}
+            {% if messages %}
+            <div class="messages" style="text-align: center; background-color: lightgreen; margin: auto">
+                {% for message in messages %}
+                    <div>{% if message.tags %}{% endif %} {{ user }},&nbsp;{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endblock allert %}
             <div class="content-box">
                 {% block content %}
                     <h1>Тестовый сайт написанный на джанго</h1>

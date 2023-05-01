@@ -2,8 +2,9 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, DetailView
+from django.views.generic import ListView, CreateView, DetailView,UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import ModelFormMixin
 from django.contrib.auth.views import LoginView
 from .models import *
 from .utils import django_slugify
@@ -25,6 +26,7 @@ def blog_home(request):
     request_dict = {'request': request}
     context = dict(list(side_bar.items()) + list(request_dict.items()))
     return render(request, template_name='blog/index.html',context=context)
+
 
 class PostsListView(DataPostMixin, ListView):
     def get_queryset(self):
@@ -61,7 +63,7 @@ class TagsList(ListView):
         return dict(list(context.items()) + list(c_def.items()) + list(side_bar.items()))
 
 
-class AddPost(ListView):
+class AddPost(CreateView):
     def get(self, request, *args, **kwargs):
         form = AddPostForm()
         request_dict = {'request': request}
@@ -134,15 +136,71 @@ class PostDetail(DetailView):
         return render(request, 'blog/post.html', context)
 
 
-def editpost(request, username, post_slug, post_id):
-    template = 'blog/edit_post.html'
-    post = Post.objects.get(id=post_id, slug__iexact=post_slug)
-    context = {
-        'post': post,
-        'side_bar': side_bar['side_bar']
-    }
+class EditPost(ModelFormMixin, DetailView):
+    template_name = 'blog/edit_post.html'
+    form_class = UpdatePostForm
+    context_object_name = 'post'
+    model = Post
 
-    return render(request, template, context)
+    # def get_success_url(self):
+    #     return reverse('post', kwargs={'post_id': self.object.pk, 'post_slug': self.object.slug, 'username': self.object.author})
+
+    def get_object(self, queryset=None):
+        post = Post.objects.get(id=self.kwargs['post_id'], slug__iexact=self.kwargs['post_slug'])
+        return post
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(EditPost, self).get_context_data(**kwargs)
+        context['form'] = self.form_class(instance=self.get_object())
+        context['side_bar'] = side_bar['side_bar']
+        return context
+
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form_class = self.get_form_class()
+
+        form = self.get_form(form_class)
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        instance = form.save()
+        instance.save()
+        return super(EditPost, self).form_valid(form)
+
+
+    #
+    # def get(self, request, **kwargs):
+    #
+    #     form = UpdatePostForm
+    #     template = 'blog/edit_post.html'
+    #     post = Post.objects.get(id=kwargs['post_id'], slug__iexact=kwargs['post_slug'])
+    #     context = {
+    #         'form': form,
+    #         'post': post,
+    #         'side_bar': side_bar['side_bar']
+    #     }
+    #     return render(request, template, context)
+    #
+    # def post(self, request, username, post_slug, post_id):
+    #     post = Post.objects.get(id=post_id, slug__iexact=post_slug)
+    #     bound_form = UpdatePostForm(request.POST, request.FILES, instance=post)
+    #
+    #     if bound_form.is_valid():
+    #         post.objects.updatte(title=bound_form.cleaned_data['title'])
+    #         post.objects.updatte(content=bound_form.cleaned_data['content'])
+    #         post.objects.updatte(tags=bound_form.cleaned_data['tags'])
+    #         post.objects.updatte(photo=bound_form.cleaned_data['photo'])
+    #         post.objects.updatte(id=post_id)
+    #         post.objects.update(slug=post_slug)
+    #         post.objects.update(author=username)
+    #         post.save()
+    #         return redirect(post)
+    #     return render(request, 'blog/edit_post.html', {'form': bound_form})
 
 
 def show_tag(request, tag_slug):
@@ -154,3 +212,18 @@ def show_tag(request, tag_slug):
         'tag': tag,
     }
     return render(request, 'blog/all_posts.html', context)
+
+
+class DeletePost(DeleteView):
+    model = Post
+    context_object_name = 'post'
+    success_url = reverse_lazy('all_posts_url')
+    template_name = 'blog/post.html'
+
+    def get_object(self, queryset=None):
+        post = Post.objects.get(id=self.kwargs['post_id'], slug__iexact=self.kwargs['post_slug'])
+        return post
+
+    def form_valid(self, form):
+        messages.success(self.request, "Вы успешно удалили запись.")
+        return super(DeletePost,self).form_valid(form)
