@@ -104,7 +104,7 @@ class PostDetail(DetailView):
                 b_f.save(commit=False)
                 b_f.save()
                 comment = Comment(author=request.user,
-                                  content=b_f.cleaned_data['content'],
+                                  comment_content=b_f.cleaned_data['comment_content'],
                                   post=post)
                 comment.save()
                 post.comments.add(comment)
@@ -118,9 +118,9 @@ class PostDetail(DetailView):
             comment = Comment.objects.get(pk=c)
             r_f = ReplyCreateForm(request.POST, instance=post)
             if r_f.is_valid():
-                content = f"{a}, {r_f.cleaned_data['content']}" if a != str(request.user) else r_f.cleaned_data['content']
+                content = f"{a}, {r_f.cleaned_data['content']}" if a != str(request.user) else r_f.cleaned_data['reply_content']
                 reply = Reply(author=request.user,
-                              content=content,
+                              reply_content=content,
                               comment=comment)
                 reply.save()
                 comment.replies.add(reply)

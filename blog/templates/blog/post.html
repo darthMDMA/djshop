@@ -62,7 +62,7 @@
             {% for c in post.comments.all %}
                 <div style="border: black solid 1px">
                     <div>
-                        {{ c.content }}
+                        {{ c.comment_content }}
                     </div>
                     <div style="display: flex">
                         <div>{{ c.author }}</div>
@@ -73,7 +73,7 @@
                 {% if c.replies.all|length > 0%}
                      {% for r in c.replies.all %}
                          <div style="border: black solid 1px;margin-left: 30px">
-                             <div>{{ r.content }}</div>
+                             <div>{{ r.reply_content }}</div>
                              <div style="display: flex; justify-content: space-between">
                                  <div>{{ r.author }}</div>
                              </div>

@@ -20,7 +20,7 @@ class Comment(models.Model):
     author = models.ForeignKey(User, name='author', on_delete=models.CASCADE)
     date_created = models.DateTimeField(default=timezone.now)
     date_updated = models.DateTimeField(auto_now=True, verbose_name='Время изменения')
-    content = models.TextField(max_length=5000,  help_text='не более 5000 символов') # для текста лучше не ставить null=True
+    comment_content = models.TextField(max_length=5000,  help_text='не более 5000 символов') # для текста лучше не ставить null=True
     likes = models.ManyToManyField(User, related_name='comment_like', blank=True) # многие ко многим
 
 
@@ -44,7 +44,7 @@ class Reply(models.Model):
     author = models.ForeignKey(User, name='author', on_delete=models.CASCADE)
     date_created = models.DateTimeField(default=timezone.now)
     date_updated = models.DateTimeField(auto_now=True, verbose_name='Время изменения')
-    content = models.TextField(max_length=5000, blank=False)
+    reply_content = models.TextField(max_length=5000, blank=False)
     like = models.ManyToManyField(User, related_name='reply_like', blank=True)
 
 

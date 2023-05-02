@@ -9,13 +9,13 @@ from .models import Comment, Reply
 class DiscussionCreateForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['content']
+        fields = ['comment_content']
         widgets = {  # перечень полей в которых мы меняем стиль
-            'content': forms.Textarea(attrs={'style': 'resize: none;''width: 100%;''overflow: none;''height: 50px;'}),
+            'comment_content': forms.Textarea(attrs={'style': 'resize: none;''width: 100%;''overflow: none;''height: 50px;'}),
         }
 
         labels = {
-            'content': 'Добавить комментарий',
+            'comment_content': 'Добавить комментарий',
 
         }
 
@@ -26,9 +26,9 @@ class DiscussionCreateForm(forms.ModelForm):
 class ReplyCreateForm(forms.ModelForm):
     class Meta:
         model = Reply
-        fields = ['content']
+        fields = ['reply_content']
         widgets = {  # перечень полей в которых мы меняем стиль
-            'content': forms.Textarea(attrs={'style': 'resize: none;'
+            'reply_content': forms.Textarea(attrs={'style': 'resize: none;'
                                                       'width: 100%;'
                                                       'overflow: none;''height: 50px;'
                                                      }),
