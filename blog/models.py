@@ -18,7 +18,6 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     tags = models.ManyToManyField('Tag', blank=True, related_name='post_tags',)
     slug = models.SlugField(max_length=50, db_index=True, verbose_name='URL')
-    # comments = models.ForeignKey(Comment, related_name='posts', blank=True, required=False, on_delete=models.CASCADE)
     likes = models.ManyToManyField(User, related_name='post_likes', blank=True) # многие ко многим
 
     def __str__(self):
