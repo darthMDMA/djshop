@@ -16,7 +16,12 @@
         url('{% static 'blog/fonts/Comfortaa-VariableFont_wght.ttf' %} format("truetype")');
       }
     </style>
-    <script src="static/js/jquery.js"></script>
+    <script async defer type="text/javascript" src="{% static 'js/jquery.js' %}" ></script>
+
+{#    <script async defer src="https://code.jquery.com/jquery-3.6.4.min.js"#}
+{#            integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="#}
+{#            crossorigin="anonymous"></script>#}
+
 </head>
 <body>
 {% block mainmenu %}
@@ -105,6 +110,8 @@
         </div>
     </div>
 </div>
+{% block jquery %}
+{% endblock jquery %}
 <!-- Конец блока контента -->
 <!-- Footer -->
 <footer>

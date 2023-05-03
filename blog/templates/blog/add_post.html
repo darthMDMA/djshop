@@ -1,4 +1,5 @@
 {% extends "blog/index.html" %}
+{% load static %}
 
 
 {% block content %}
@@ -14,8 +15,11 @@
             <button type="submit">Добавить</button>
         </form>
     </div>
+{% endblock content %}
 
-    {% endblock content %}
 
 
-<script src="blog/static/js/custom.js"></script>
+{% block jquery %}
+<script src="{% static 'blog/js/custom.js' %}" ></script>
+{% endblock jquery %}
+

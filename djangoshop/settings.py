@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.sites', # важная библиотека, которая понадобится для других и выводит в админ панели sites
     'django.contrib.staticfiles',
+    'jquery',
     'debug_toolbar', # дебаг тулбар https://django-debug-toolbar.readthedocs.io/en/latest/installation.html
    # 'channels', # https://channels.readthedocs.io/en/stable/installation.html
     'django.contrib.humanize', # для шаблонов https://docs.djangoproject.com/en/4.1/ref/contrib/humanize/
@@ -158,6 +159,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
