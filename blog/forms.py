@@ -1,5 +1,6 @@
 from django import forms
-from .models import Post
+from .models import Post, Tag
+
 
 # узнать как применить в форме  fileds initital, для класса Form
 # для класса форм это делается forms.DateField(initital=datetime.date.toda)
@@ -35,7 +36,7 @@ class UpdatePostForm(forms.ModelForm):
                                                              'min-width: 344px;'
                                                              'overflow: none;'
                                                              'height: auto;'}),
-                   'tags': forms.CheckboxSelectMultiple(),}
+                   'tags': forms.CheckboxInput(),}
 
         labels = {'title': 'Название статьи',
                   'content': 'Содержание',
